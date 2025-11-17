@@ -1,0 +1,15 @@
+{
+  "name": "yield-ranker-server",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "bun index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  }
+}
+
+
+
