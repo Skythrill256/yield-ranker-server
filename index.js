@@ -2,6 +2,11 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
+import fs from "fs";
+import multer from "multer";
+import * as XLSX from "xlsx";
+import { createClient } from "@supabase/supabase-js";
+import dotenv from "dotenv";
 import {
   fetchQuoteDirect,
   fetchBatchQuotesDirect,
@@ -9,19 +14,368 @@ import {
   fetchDividendHistoryDirect,
   calculateAverageDividend,
 } from "./yahooFinanceDirect.js";
-import etfs from "./etfs.json" assert { type: "json" };
+
+dotenv.config();
 
 const app = express();
-const port = process.env.PORT || process.env.YAHOO_SERVER_PORT || 4000;
+const port = process.env.PORT || 4000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  console.error("Error: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set in .env file");
+  process.exit(1);
+}
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
+
+const uploadsDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadsDir);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, "upload-" + uniqueSuffix + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 10 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const allowedExts = [".xlsx", ".xls"];
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (allowedExts.includes(ext)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Only Excel files are allowed"));
+    }
+  },
+});
 
 app.use(cors());
 app.use(express.json());
 
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
+});
+
+app.post("/api/admin/upload-dtr", upload.single("file"), async (req, res) => {
+  let filePath = null;
+  
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    filePath = req.file.path;
+    const workbook = XLSX.readFile(filePath);
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    const rawData = XLSX.utils.sheet_to_json(sheet, { defval: null });
+
+    if (!rawData || rawData.length === 0) {
+      return res.status(400).json({ error: "Excel file is empty" });
+    }
+
+    const columnMapping = {
+      SYMBOL: "symbol",
+      Issuer: "issuer",
+      DESC: "description",
+      "Pay Day": "pay_day",
+      "IPO PRICE": "ipo_price",
+      Price: "price",
+      "Price Cha": "price_change",
+      "Price Change": "price_change",
+      Dividend: "dividend",
+      "# Pmts": "payments_per_year",
+      "Annual Div": "annual_div",
+      "Forward Y": "forward_yield",
+      "Forward Yield": "forward_yield",
+      "Dividend Vo": "dividend_volatility_index",
+      "Dividend Volatility": "dividend_volatility_index",
+      "Weighted": "weighted_rank",
+      "Weighted Rank": "weighted_rank",
+      "3 YR Annlz": "three_year_annualized",
+      "3 Year Annualized": "three_year_annualized",
+      "12 Month": "total_return_12m",
+      "6 Month": "total_return_6m",
+      "3 Month": "total_return_3m",
+      "1 Month": "total_return_1m",
+      "1 Week": "total_return_1w",
+    };
+
+    const parseNumeric = (val) => {
+      if (val === null || val === undefined || val === "") return null;
+      if (typeof val === "number") return val;
+      const str = String(val).trim();
+      if (str.toLowerCase() === "n/a" || str === "") return null;
+      const parsed = parseFloat(str.replace(/[^0-9.-]/g, ""));
+      return isNaN(parsed) ? null : parsed;
+    };
+
+    const etfsToUpsert = [];
+    const now = new Date().toISOString();
+
+    for (const row of rawData) {
+      const symbolValue = row.SYMBOL || row.Symbol || row.symbol;
+      if (!symbolValue) continue;
+
+      const symbol = String(symbolValue).trim().toUpperCase();
+      if (!symbol) continue;
+
+      const etfData = {
+        symbol,
+        spreadsheet_updated_at: now,
+      };
+
+      for (const [excelCol, dbCol] of Object.entries(columnMapping)) {
+        if (excelCol === "SYMBOL") continue;
+        
+        let value = row[excelCol];
+        
+        if (value === undefined) {
+          for (const key of Object.keys(row)) {
+            if (key.startsWith(excelCol)) {
+              value = row[key];
+              break;
+            }
+          }
+        }
+
+        if (dbCol === "issuer" || dbCol === "description" || dbCol === "pay_day") {
+          etfData[dbCol] = value ? String(value).trim() : null;
+        } else {
+          etfData[dbCol] = parseNumeric(value);
+        }
+      }
+
+      etfsToUpsert.push(etfData);
+    }
+
+    if (etfsToUpsert.length === 0) {
+      return res.status(400).json({ error: "No valid ETF data found. Make sure SYMBOL column exists." });
+    }
+
+    const { data, error } = await supabase
+      .from("etfs")
+      .upsert(etfsToUpsert, { onConflict: "symbol" });
+
+    if (error) {
+      console.error("Supabase upsert error:", error);
+      return res.status(500).json({ error: "Failed to upsert data to database", details: error.message });
+    }
+
+    if (filePath && fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+
+    res.json({
+      message: `Successfully processed ${etfsToUpsert.length} ETFs`,
+      count: etfsToUpsert.length,
+    });
+  } catch (error) {
+    console.error("Upload error:", error);
+    
+    if (filePath && fs.existsSync(filePath)) {
+      try {
+        fs.unlinkSync(filePath);
+      } catch (e) {}
+    }
+
+    res.status(500).json({
+      error: "Failed to process Excel file",
+      message: error.message,
+    });
+  }
+});
+
+app.get("/api/etfs", async (req, res) => {
+  try {
+    const { data, error, count } = await supabase
+      .from("etfs")
+      .select("*", { count: "exact" })
+      .order("symbol", { ascending: true });
+
+    if (error) {
+      console.error("Supabase fetch error:", error);
+      return res.status(500).json({ error: "Failed to fetch ETFs" });
+    }
+
+    res.json({ data: data || [], count: count || 0 });
+  } catch (error) {
+    console.error("Error fetching ETFs:", error);
+    res.status(500).json({ error: "Failed to fetch ETFs" });
+  }
+});
+
+app.get("/api/etfs/:symbol", async (req, res) => {
+  try {
+    const symbol = req.params.symbol.toUpperCase();
+    
+    const { data, error } = await supabase
+      .from("etfs")
+      .select("*")
+      .eq("symbol", symbol)
+      .single();
+
+    if (error) {
+      if (error.code === "PGRST116") {
+        return res.status(404).json({ error: "ETF not found" });
+      }
+      console.error("Supabase fetch error:", error);
+      return res.status(500).json({ error: "Failed to fetch ETF" });
+    }
+
+    res.json({ data });
+  } catch (error) {
+    console.error("Error fetching ETF:", error);
+    res.status(500).json({ error: "Failed to fetch ETF" });
+  }
+});
+
+app.get("/api/yahoo-finance/returns", async (req, res) => {
+  try {
+    const symbol = typeof req.query.symbol === "string" ? req.query.symbol.toUpperCase() : null;
+    if (!symbol) {
+      return res.status(400).json({ error: "symbol is required" });
+    }
+
+    const quote = await fetchQuoteDirect(symbol);
+    
+    const result = await fetchComparisonChartsDirect([symbol], "3Y");
+    const historical = result.data[symbol] || { timestamps: [], closes: [] };
+    
+    const calculateReturn = (closes, timestamps, months) => {
+      if (!closes || closes.length < 2) return null;
+      const currentPrice = closes[closes.length - 1];
+      const currentTime = timestamps[timestamps.length - 1];
+      const targetTime = currentTime - (months * 30 * 24 * 60 * 60);
+      
+      let closestIndex = 0;
+      let closestDiff = Math.abs(timestamps[0] - targetTime);
+      for (let i = 1; i < timestamps.length; i++) {
+        const diff = Math.abs(timestamps[i] - targetTime);
+        if (diff < closestDiff) {
+          closestDiff = diff;
+          closestIndex = i;
+        }
+      }
+      
+      const pastPrice = closes[closestIndex];
+      if (!pastPrice || pastPrice <= 0 || !currentPrice || currentPrice <= 0) return null;
+      return ((currentPrice - pastPrice) / pastPrice) * 100;
+    };
+
+    const calculateWeekReturn = (closes, timestamps) => {
+      if (!closes || closes.length < 2) return null;
+      const currentPrice = closes[closes.length - 1];
+      const currentTime = timestamps[timestamps.length - 1];
+      const targetTime = currentTime - (7 * 24 * 60 * 60);
+      
+      let closestIndex = closes.length - 1;
+      let closestDiff = Infinity;
+      for (let i = closes.length - 1; i >= 0; i--) {
+        const diff = Math.abs(timestamps[i] - targetTime);
+        if (diff < closestDiff) {
+          closestDiff = diff;
+          closestIndex = i;
+        }
+      }
+      
+      const pastPrice = closes[closestIndex];
+      if (!pastPrice || pastPrice <= 0 || !currentPrice || currentPrice <= 0) return null;
+      return ((currentPrice - pastPrice) / pastPrice) * 100;
+    };
+
+    const priceReturn1Wk = calculateWeekReturn(historical.closes, historical.timestamps);
+    const priceReturn1Mo = calculateReturn(historical.closes, historical.timestamps, 1);
+    const priceReturn3Mo = calculateReturn(historical.closes, historical.timestamps, 3);
+    const priceReturn6Mo = calculateReturn(historical.closes, historical.timestamps, 6);
+    const priceReturn12Mo = calculateReturn(historical.closes, historical.timestamps, 12);
+    const priceReturn3Yr = calculateReturn(historical.closes, historical.timestamps, 36);
+
+    const response = {
+      symbol,
+      currentPrice: quote.price || null,
+      priceChange: quote.priceChange || null,
+      priceReturn1Wk,
+      priceReturn1Mo,
+      priceReturn3Mo,
+      priceReturn6Mo,
+      priceReturn12Mo,
+      priceReturn3Yr,
+      totalReturn1Wk: priceReturn1Wk,
+      totalReturn1Mo: priceReturn1Mo,
+      totalReturn3Mo: priceReturn3Mo,
+      totalReturn6Mo: priceReturn6Mo,
+      totalReturn12Mo: priceReturn12Mo,
+      totalReturn3Yr: priceReturn3Yr,
+    };
+
+    res.json(response);
+  } catch (error) {
+    console.error("Error fetching returns:", error);
+    res.status(500).json({ error: "Failed to fetch returns" });
+  }
+});
+
+app.get("/api/yahoo-finance/dividends", async (req, res) => {
+  try {
+    const symbol = typeof req.query.symbol === "string" ? req.query.symbol.toUpperCase() : null;
+    if (!symbol) {
+      return res.status(400).json({ error: "symbol is required" });
+    }
+    
+    const result = await fetchDividendHistoryDirect(symbol);
+    res.json(result);
+  } catch (error) {
+    console.error("Error fetching dividends:", error);
+    res.status(500).json({ error: "Failed to fetch dividend history" });
+  }
+});
+
+app.get("/api/yahoo-finance/etf", async (req, res) => {
+  try {
+    const symbol = typeof req.query.symbol === "string" ? req.query.symbol.toUpperCase() : null;
+    if (!symbol) {
+      return res.status(400).json({ error: "symbol is required" });
+    }
+
+    const timeframe = typeof req.query.timeframe === "string" ? req.query.timeframe : "1Y";
+    const result = await fetchComparisonChartsDirect([symbol], timeframe);
+    const historical = result.data[symbol];
+
+    if (!historical || !historical.timestamps || !historical.closes) {
+      return res.status(404).json({ error: "No data found for symbol" });
+    }
+
+    const chartData = historical.timestamps.map((timestamp, index) => ({
+      timestamp,
+      close: historical.closes[index],
+      high: historical.highs?.[index] || historical.closes[index],
+      low: historical.lows?.[index] || historical.closes[index],
+      open: historical.opens?.[index] || historical.closes[index],
+      volume: historical.volumes?.[index] || 0,
+    }));
+
+    res.json({
+      symbol,
+      data: chartData,
+    });
+  } catch (error) {
+    console.error("Error fetching ETF data:", error);
+    res.status(500).json({ error: "Failed to fetch ETF data" });
+  }
 });
 
 app.get("/api/yahoo-finance", async (req, res) => {
@@ -39,66 +393,6 @@ app.get("/api/yahoo-finance", async (req, res) => {
 
 const totalReturnsCache = new Map();
 const TOTAL_RETURNS_TTL_MS = 6 * 60 * 60 * 1000;
-
-let etfCacheData = null;
-let etfCacheTimestamp = 0;
-const ETF_TTL_MS = 60 * 1000;
-
-app.get("/api/yahoo-finance/etf", async (req, res) => {
-  try {
-    const now = Date.now();
-    if (etfCacheData && now - etfCacheTimestamp < ETF_TTL_MS) {
-      return res.json({ data: etfCacheData });
-    }
-
-    const symbols = etfs.map((e) => e.symbol);
-    const quotes = await fetchBatchQuotesDirect(symbols);
-    
-    const dividendPromises = symbols.map(symbol => 
-      fetchDividendHistoryDirect(symbol).catch(() => ({ symbol, dividends: [] }))
-    );
-    const dividendResults = await Promise.all(dividendPromises);
-    const dividendMap = {};
-    dividendResults.forEach(result => {
-      dividendMap[result.symbol] = result.dividends;
-    });
-    
-    const data = etfs.map((base) => {
-      const q = quotes[base.symbol] || {};
-      const divHistory = dividendMap[base.symbol] || [];
-      const avgDividend = calculateAverageDividend(divHistory, base.numPayments || 12);
-      
-      const forwardYield = q.price && avgDividend ? ((avgDividend * (base.numPayments || 12)) / q.price) * 100 : base.forwardYield ?? null;
-      
-      const stdDev = base.standardDeviation ?? 0;
-      
-      return {
-        ...base,
-        price: q.price ?? base.price ?? null,
-        priceChange: q.priceChange ?? base.priceChange ?? null,
-        previousClose: q.previousClose ?? null,
-        currency: q.currency ?? null,
-        exchange: q.exchange ?? null,
-        dividend: avgDividend ?? base.dividend ?? null,
-        annualDividend: avgDividend ? avgDividend * (base.numPayments || 12) : base.annualDividend ?? null,
-        forwardYield: forwardYield,
-        standardDeviation: stdDev,
-        totalReturn3Mo: base.totalReturn3Mo ?? null,
-        totalReturn6Mo: base.totalReturn6Mo ?? null,
-        totalReturn12Mo: base.totalReturn12Mo ?? null,
-        totalReturn3Yr: base.totalReturn3Yr ?? null,
-      };
-    });
-
-    etfCacheData = data;
-    etfCacheTimestamp = Date.now();
-
-    res.json({ data });
-  } catch (error) {
-    console.error("[API] /api/yahoo-finance/etf error:", error);
-    res.status(500).json({ error: "Failed to fetch ETF data" });
-  }
-});
 
 app.get("/api/yahoo-finance/total-returns", async (req, res) => {
   try {
@@ -148,7 +442,7 @@ app.get("/api/yahoo-finance/total-returns", async (req, res) => {
     totalReturnsCache.set(cacheKey, { data: returns, timestamp: Date.now() });
     res.json({ data: returns });
   } catch (error) {
-    console.error(`[API] /api/yahoo-finance/total-returns error for ${req.query.symbol}:`, error);
+    console.error(`Error fetching total returns for ${req.query.symbol}:`, error);
     res.status(500).json({ error: "Failed to fetch total returns" });
   }
 });
@@ -179,7 +473,8 @@ app.get("/api/yahoo-finance/quick-update", async (req, res) => {
         .map((s) => s.trim().toUpperCase())
         .filter(Boolean);
     } else {
-      symbols = etfs.map((e) => e.symbol);
+      const { data } = await supabase.from("etfs").select("symbol");
+      symbols = data ? data.map(e => e.symbol) : [];
     }
     const quotes = await fetchBatchQuotesDirect(symbols);
     res.json({ data: quotes });
@@ -197,7 +492,8 @@ app.post("/api/yahoo-finance/quick-update", async (req, res) => {
         .map((s) => (typeof s === "string" ? s.trim().toUpperCase() : s))
         .filter(Boolean);
     } else {
-      symbols = etfs.map((e) => e.symbol);
+      const { data } = await supabase.from("etfs").select("symbol");
+      symbols = data ? data.map(e => e.symbol) : [];
     }
     const quotes = await fetchBatchQuotesDirect(symbols);
     res.json({ data: quotes });
@@ -241,7 +537,7 @@ app.post("/api/yahoo-finance", async (req, res) => {
 
     return res.status(400).json({ error: "invalid action" });
   } catch (error) {
-    console.error("[API] /api/yahoo-finance error:", error);
+    console.error("Yahoo Finance error:", error);
     res.status(500).json({
       error: "Failed to handle Yahoo Finance request",
       message: error.message,
@@ -249,30 +545,8 @@ app.post("/api/yahoo-finance", async (req, res) => {
   }
 });
 
-app.get("/api/yahoo-finance/dividends", async (req, res) => {
-  try {
-    const symbol =
-      typeof req.query.symbol === "string"
-        ? req.query.symbol.toUpperCase()
-        : null;
-    if (!symbol) {
-      return res.status(400).json({ error: "symbol is required" });
-    }
-    const result = await fetchDividendHistoryDirect(symbol);
-    res.json({ data: result });
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch dividend history" });
-  }
-});
-
 app.use("/static", express.static(path.join(__dirname)));
 
 app.listen(port, () => {
-  process.stdout.write(`Yahoo Finance server listening on port ${port}\n`);
+  process.stdout.write(`Server running on port ${port}\n`);
 });
-
-import('./schedule-daily-update.js').catch(err => {
-  console.error('Failed to start daily update scheduler:', err);
-});
-
-

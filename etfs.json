@@ -16,10 +16,10 @@
     "weightedRank": 0,
     "week52Low": 30,
     "week52High": 55,
-    "totalReturn12Mo": -17.53,
-    "totalReturn6Mo": 18.15,
-    "totalReturn3Mo": 10.46,
-    "totalReturn3Yr": -17.53
+    "totalReturn12Mo": -18.24,
+    "totalReturn6Mo": 17.13,
+    "totalReturn3Mo": 9.51,
+    "totalReturn3Yr": -18.24
   },
   {
     "symbol": "AAPL",
@@ -38,10 +38,10 @@
     "weightedRank": 0,
     "week52Low": 10,
     "week52High": 20,
-    "totalReturn12Mo": 13.35,
-    "totalReturn6Mo": 37.77,
-    "totalReturn3Mo": 18.12,
-    "totalReturn3Yr": 89.24
+    "totalReturn12Mo": 12.7,
+    "totalReturn6Mo": 36.97,
+    "totalReturn3Mo": 17.43,
+    "totalReturn3Yr": 88.14
   },
   {
     "symbol": "ABNY",
@@ -60,10 +60,10 @@
     "weightedRank": 0,
     "week52Low": 7,
     "week52High": 15,
-    "totalReturn12Mo": -41.29,
-    "totalReturn6Mo": -22.01,
-    "totalReturn3Mo": -11.84,
-    "totalReturn3Yr": -54.78
+    "totalReturn12Mo": -42.28,
+    "totalReturn6Mo": -23.32,
+    "totalReturn3Mo": -13.33,
+    "totalReturn3Yr": -55.54
   },
   {
     "symbol": "AIPI",
@@ -82,10 +82,10 @@
     "weightedRank": 0,
     "week52Low": 35,
     "week52High": 50,
-    "totalReturn3Mo": -0.11,
-    "totalReturn6Mo": 1.41,
-    "totalReturn12Mo": -16.38,
-    "totalReturn3Yr": -19.07
+    "totalReturn3Mo": -1.02,
+    "totalReturn6Mo": 0.48,
+    "totalReturn12Mo": -17.15,
+    "totalReturn3Yr": -19.81
   },
   {
     "symbol": "GPTY",
@@ -104,10 +104,10 @@
     "weightedRank": 0,
     "week52Low": 32,
     "week52High": 50,
-    "totalReturn3Mo": 0.23,
-    "totalReturn6Mo": 3.57,
-    "totalReturn12Mo": -10.67,
-    "totalReturn3Yr": -10.67
+    "totalReturn3Mo": -0.9,
+    "totalReturn6Mo": 2.4,
+    "totalReturn12Mo": -11.67,
+    "totalReturn3Yr": -11.67
   },
   {
     "symbol": "AMDY",
@@ -126,10 +126,10 @@
     "weightedRank": 0,
     "week52Low": 40,
     "week52High": 70,
-    "totalReturn12Mo": -20.18,
-    "totalReturn6Mo": 21.47,
-    "totalReturn3Mo": 14.79,
-    "totalReturn3Yr": -51.5
+    "totalReturn12Mo": -21.18,
+    "totalReturn6Mo": 19.95,
+    "totalReturn3Mo": 13.36,
+    "totalReturn3Yr": -52.1
   },
   {
     "symbol": "AMYY",
@@ -148,10 +148,10 @@
     "weightedRank": 0,
     "week52Low": 20,
     "week52High": 30,
-    "totalReturn3Mo": 1.31,
-    "totalReturn6Mo": 1.31,
-    "totalReturn12Mo": 1.31,
-    "totalReturn3Yr": 1.31
+    "totalReturn3Mo": 0.52,
+    "totalReturn6Mo": 0.52,
+    "totalReturn12Mo": 0.52,
+    "totalReturn3Yr": 0.52
   },
   {
     "symbol": "AMDY",
@@ -170,10 +170,10 @@
     "weightedRank": 0,
     "week52Low": 7,
     "week52High": 15,
-    "totalReturn12Mo": -20.18,
-    "totalReturn6Mo": 21.47,
-    "totalReturn3Mo": 14.79,
-    "totalReturn3Yr": -51.5
+    "totalReturn12Mo": -21.18,
+    "totalReturn6Mo": 19.95,
+    "totalReturn3Mo": 13.36,
+    "totalReturn3Yr": -52.1
   },
   {
     "symbol": "AMZP",
@@ -192,10 +192,10 @@
     "weightedRank": 0,
     "week52Low": 22,
     "week52High": 35,
-    "totalReturn3Mo": -2.13,
-    "totalReturn6Mo": 7.03,
-    "totalReturn12Mo": -7.39,
-    "totalReturn3Yr": 11.72
+    "totalReturn3Mo": -2.23,
+    "totalReturn6Mo": 6.92,
+    "totalReturn12Mo": -7.49,
+    "totalReturn3Yr": 11.6
   },
   {
     "symbol": "AMZY",
@@ -214,10 +214,10 @@
     "weightedRank": 0,
     "week52Low": 18,
     "week52High": 28,
-    "totalReturn3Mo": -10.35,
-    "totalReturn6Mo": -10.24,
-    "totalReturn12Mo": -26.93,
-    "totalReturn3Yr": -31.65
+    "totalReturn3Mo": -10.32,
+    "totalReturn6Mo": -10.21,
+    "totalReturn12Mo": -26.91,
+    "totalReturn3Yr": -31.63
   },
   {
     "symbol": "AMZW",
@@ -236,10 +236,10 @@
     "weightedRank": 0,
     "week52Low": 38,
     "week52High": 55,
-    "totalReturn12Mo": -7.33,
-    "totalReturn6Mo": -7.33,
-    "totalReturn3Mo": -9.53,
-    "totalReturn3Yr": -7.33
+    "totalReturn12Mo": -7.39,
+    "totalReturn6Mo": -7.39,
+    "totalReturn3Mo": -9.58,
+    "totalReturn3Yr": -7.39
   },
   {
     "symbol": "OARK",
@@ -258,10 +258,10 @@
     "weightedRank": 0,
     "week52Low": 6,
     "week52High": 12,
-    "totalReturn3Mo": -11.77,
-    "totalReturn6Mo": -0.84,
-    "totalReturn12Mo": -28.38,
-    "totalReturn3Yr": -60.96
+    "totalReturn3Mo": -13.2,
+    "totalReturn6Mo": -2.45,
+    "totalReturn12Mo": -29.54,
+    "totalReturn3Yr": -61.6
   },
   {
     "symbol": "AVGW",
@@ -280,10 +280,10 @@
     "weightedRank": 0,
     "week52Low": 40,
     "week52High": 65,
-    "totalReturn3Mo": 2.11,
-    "totalReturn6Mo": -1.44,
-    "totalReturn12Mo": -1.44,
-    "totalReturn3Yr": -1.44
+    "totalReturn3Mo": 0.24,
+    "totalReturn6Mo": -3.25,
+    "totalReturn12Mo": -3.25,
+    "totalReturn3Yr": -3.25
   },
   {
     "symbol": "BABO",
@@ -302,10 +302,10 @@
     "weightedRank": 0,
     "week52Low": 10,
     "week52High": 18,
-    "totalReturn3Mo": -3.26,
-    "totalReturn6Mo": -9.85,
-    "totalReturn12Mo": -22.26,
-    "totalReturn3Yr": -28.7
+    "totalReturn3Mo": -4.25,
+    "totalReturn6Mo": -10.77,
+    "totalReturn12Mo": -23.06,
+    "totalReturn3Yr": -29.44
   },
   {
     "symbol": "YBIT",
@@ -324,10 +324,10 @@
     "weightedRank": 0,
     "week52Low": 5,
     "week52High": 15,
-    "totalReturn12Mo": -45.05,
-    "totalReturn6Mo": -29.99,
-    "totalReturn3Mo": -25.83,
-    "totalReturn3Yr": -61.82
+    "totalReturn12Mo": -46.43,
+    "totalReturn6Mo": -31.74,
+    "totalReturn3Mo": -27.68,
+    "totalReturn3Yr": -62.77
   },
   {
     "symbol": "BAGY",
@@ -346,10 +346,10 @@
     "weightedRank": 0,
     "week52Low": 30,
     "week52High": 55,
-    "totalReturn3Mo": -29.6,
-    "totalReturn6Mo": -29.26,
-    "totalReturn12Mo": -20.08,
-    "totalReturn3Yr": -20.08
+    "totalReturn3Mo": -31.21,
+    "totalReturn6Mo": -30.88,
+    "totalReturn12Mo": -21.91,
+    "totalReturn3Yr": -21.91
   },
   {
     "symbol": "BTCO",
@@ -368,10 +368,10 @@
     "weightedRank": 0,
     "week52Low": 35,
     "week52High": 60,
-    "totalReturn3Mo": -19.77,
-    "totalReturn6Mo": -13.98,
-    "totalReturn12Mo": -3.73,
-    "totalReturn3Yr": 112.93
+    "totalReturn3Mo": -21.37,
+    "totalReturn6Mo": -15.69,
+    "totalReturn12Mo": -5.65,
+    "totalReturn3Yr": 108.69
   },
   {
     "symbol": "YBTC",
@@ -390,10 +390,10 @@
     "weightedRank": 0,
     "week52Low": 25,
     "week52High": 50,
-    "totalReturn3Mo": -30.54,
-    "totalReturn6Mo": -29.51,
-    "totalReturn12Mo": -36.12,
-    "totalReturn3Yr": -32.34
+    "totalReturn3Mo": -31.81,
+    "totalReturn6Mo": -30.8,
+    "totalReturn12Mo": -37.29,
+    "totalReturn3Yr": -33.59
   },
   {
     "symbol": "BRKW",
@@ -412,10 +412,10 @@
     "weightedRank": 0,
     "week52Low": 38,
     "week52High": 52,
-    "totalReturn3Mo": -3.23,
-    "totalReturn6Mo": -7.36,
-    "totalReturn12Mo": -7.36,
-    "totalReturn3Yr": -7.36
+    "totalReturn3Mo": -4.14,
+    "totalReturn6Mo": -8.24,
+    "totalReturn12Mo": -8.24,
+    "totalReturn3Yr": -8.24
   },
   {
     "symbol": "XBTY",
@@ -434,10 +434,10 @@
     "weightedRank": 0,
     "week52Low": 10,
     "week52High": 20,
-    "totalReturn3Mo": -44.82,
-    "totalReturn6Mo": -51.4,
-    "totalReturn12Mo": -49.95,
-    "totalReturn3Yr": -49.95
+    "totalReturn3Mo": -45.25,
+    "totalReturn6Mo": -51.78,
+    "totalReturn12Mo": -50.34,
+    "totalReturn3Yr": -50.34
   },
   {
     "symbol": "COIN",
@@ -456,10 +456,10 @@
     "weightedRank": 0,
     "week52Low": 15,
     "week52High": 25,
-    "totalReturn12Mo": -9.63,
-    "totalReturn6Mo": 1.71,
-    "totalReturn3Mo": -16.31,
-    "totalReturn3Yr": 565.18
+    "totalReturn12Mo": -10.89,
+    "totalReturn6Mo": 0.3,
+    "totalReturn3Mo": -17.48,
+    "totalReturn3Yr": 555.94
   },
   {
     "symbol": "COIW",
@@ -478,10 +478,10 @@
     "weightedRank": 0,
     "week52Low": 22,
     "week52High": 45,
-    "totalReturn3Mo": -37.13,
-    "totalReturn6Mo": -35.88,
-    "totalReturn12Mo": -38.83,
-    "totalReturn3Yr": -38.83
+    "totalReturn3Mo": -38.51,
+    "totalReturn6Mo": -37.29,
+    "totalReturn12Mo": -40.17,
+    "totalReturn3Yr": -40.17
   },
   {
     "symbol": "COYY",
@@ -500,10 +500,10 @@
     "weightedRank": 0,
     "week52Low": 8,
     "week52High": 18,
-    "totalReturn3Mo": -50.02,
-    "totalReturn6Mo": -53.53,
-    "totalReturn12Mo": -53.53,
-    "totalReturn3Yr": -53.53
+    "totalReturn3Mo": -50.69,
+    "totalReturn6Mo": -54.14,
+    "totalReturn12Mo": -54.14,
+    "totalReturn3Yr": -54.14
   },
   {
     "symbol": "CONY",
@@ -522,10 +522,10 @@
     "weightedRank": 0,
     "week52Low": 4,
     "week52High": 12,
-    "totalReturn12Mo": -70.13,
-    "totalReturn6Mo": -44.37,
-    "totalReturn3Mo": -29.93,
-    "totalReturn3Yr": -73.18
+    "totalReturn12Mo": -70.56,
+    "totalReturn6Mo": -45.16,
+    "totalReturn3Mo": -30.92,
+    "totalReturn3Yr": -73.56
   },
   {
     "symbol": "CEPI",
@@ -544,10 +544,10 @@
     "weightedRank": 0,
     "week52Low": 28,
     "week52High": 45,
-    "totalReturn3Mo": -12.44,
-    "totalReturn6Mo": -8.57,
-    "totalReturn12Mo": -31.18,
-    "totalReturn3Yr": -31.18
+    "totalReturn3Mo": -13.53,
+    "totalReturn6Mo": -9.71,
+    "totalReturn12Mo": -32.04,
+    "totalReturn3Yr": -32.04
   },
   {
     "symbol": "LFGY",
@@ -566,10 +566,10 @@
     "weightedRank": 0,
     "week52Low": 22,
     "week52High": 40,
-    "totalReturn12Mo": -48.14,
-    "totalReturn6Mo": -28.47,
-    "totalReturn3Mo": -21.09,
-    "totalReturn3Yr": -48.14
+    "totalReturn12Mo": -48.18,
+    "totalReturn6Mo": -28.52,
+    "totalReturn3Mo": -21.14,
+    "totalReturn3Yr": -48.18
   },
   {
     "symbol": "BLOX",
@@ -588,10 +588,10 @@
     "weightedRank": 0,
     "week52Low": 15,
     "week52High": 24,
-    "totalReturn3Mo": -14.4,
-    "totalReturn6Mo": -0.86,
-    "totalReturn12Mo": -0.86,
-    "totalReturn3Yr": -0.86
+    "totalReturn3Mo": -16.79,
+    "totalReturn6Mo": -3.63,
+    "totalReturn12Mo": -3.63,
+    "totalReturn3Yr": -3.63
   },
   {
     "symbol": "CVNY",
@@ -610,10 +610,10 @@
     "weightedRank": 0,
     "week52Low": 25,
     "week52High": 45,
-    "totalReturn3Mo": -16.92,
-    "totalReturn6Mo": -28.14,
-    "totalReturn12Mo": -34.12,
-    "totalReturn3Yr": -34.12
+    "totalReturn3Mo": -19.09,
+    "totalReturn6Mo": -30.01,
+    "totalReturn12Mo": -35.84,
+    "totalReturn3Yr": -35.84
   },
   {
     "symbol": "CRTI",
@@ -650,10 +650,10 @@
     "weightedRank": 0,
     "week52Low": 8,
     "week52High": 15,
-    "totalReturn12Mo": -40.29,
-    "totalReturn6Mo": -19.73,
-    "totalReturn3Mo": -15.8,
-    "totalReturn3Yr": -46.22
+    "totalReturn12Mo": -40.95,
+    "totalReturn6Mo": -20.62,
+    "totalReturn3Mo": -16.73,
+    "totalReturn3Yr": -46.82
   },
   {
     "symbol": "IGLD",
@@ -672,10 +672,10 @@
     "weightedRank": 0,
     "week52Low": 18,
     "week52High": 28,
-    "totalReturn3Mo": 12.79,
-    "totalReturn6Mo": 13.1,
-    "totalReturn12Mo": 15.52,
-    "totalReturn3Yr": 31.04
+    "totalReturn3Mo": 12.04,
+    "totalReturn6Mo": 12.35,
+    "totalReturn12Mo": 14.76,
+    "totalReturn3Yr": 30.17
   },
   {
     "symbol": "IAUI",
@@ -694,10 +694,10 @@
     "weightedRank": 0,
     "week52Low": 45,
     "week52High": 58,
-    "totalReturn12Mo": 9.76,
-    "totalReturn6Mo": 9.76,
-    "totalReturn3Mo": 10.25,
-    "totalReturn3Yr": 9.76
+    "totalReturn12Mo": 9.35,
+    "totalReturn6Mo": 9.35,
+    "totalReturn3Mo": 9.84,
+    "totalReturn3Yr": 9.35
   },
   {
     "symbol": "KGLD",
@@ -716,10 +716,10 @@
     "weightedRank": 0,
     "week52Low": 22,
     "week52High": 32,
-    "totalReturn3Mo": 14.52,
-    "totalReturn6Mo": 15.08,
-    "totalReturn12Mo": 15.08,
-    "totalReturn3Yr": 15.08
+    "totalReturn3Mo": 13.73,
+    "totalReturn6Mo": 14.29,
+    "totalReturn12Mo": 14.29,
+    "totalReturn3Yr": 14.29
   },
   {
     "symbol": "GLDW",
@@ -738,10 +738,10 @@
     "weightedRank": 0,
     "week52Low": 42,
     "week52High": 58,
-    "totalReturn3Mo": 1.18,
-    "totalReturn6Mo": 1.18,
-    "totalReturn12Mo": 1.18,
-    "totalReturn3Yr": 1.18
+    "totalReturn3Mo": 0.2,
+    "totalReturn6Mo": 0.2,
+    "totalReturn12Mo": 0.2,
+    "totalReturn3Yr": 0.2
   },
   {
     "symbol": "GDXY",
@@ -760,10 +760,10 @@
     "weightedRank": 0,
     "week52Low": 12,
     "week52High": 20,
-    "totalReturn3Mo": 2.05,
-    "totalReturn6Mo": 3.45,
-    "totalReturn12Mo": -0.03,
-    "totalReturn3Yr": -17
+    "totalReturn3Mo": 1.17,
+    "totalReturn6Mo": 2.56,
+    "totalReturn12Mo": -0.89,
+    "totalReturn3Yr": -17.72
   },
   {
     "symbol": "GOOP",
@@ -782,10 +782,10 @@
     "weightedRank": 0,
     "week52Low": 28,
     "week52High": 42,
-    "totalReturn12Mo": 34.26,
-    "totalReturn6Mo": 51.51,
-    "totalReturn3Mo": 25.6,
-    "totalReturn3Yr": 45.52
+    "totalReturn12Mo": 32.5,
+    "totalReturn6Mo": 49.52,
+    "totalReturn3Mo": 23.96,
+    "totalReturn3Yr": 43.61
   },
   {
     "symbol": "GOOW",
@@ -804,10 +804,10 @@
     "weightedRank": 0,
     "week52Low": 45,
     "week52High": 72,
-    "totalReturn12Mo": 33.64,
-    "totalReturn6Mo": 33.64,
-    "totalReturn3Mo": 28.78,
-    "totalReturn3Yr": 33.64
+    "totalReturn12Mo": 31.58,
+    "totalReturn6Mo": 31.58,
+    "totalReturn3Mo": 26.79,
+    "totalReturn3Yr": 31.58
   },
   {
     "symbol": "GOOY",
@@ -826,10 +826,10 @@
     "weightedRank": 0,
     "week52Low": 10,
     "week52High": 18,
-    "totalReturn12Mo": 1.8,
-    "totalReturn6Mo": 20.15,
-    "totalReturn3Mo": 10.47,
-    "totalReturn3Yr": -29.14
+    "totalReturn12Mo": 0.98,
+    "totalReturn6Mo": 19.19,
+    "totalReturn3Mo": 9.58,
+    "totalReturn3Yr": -29.71
   },
   {
     "symbol": "JEPO",
@@ -866,10 +866,10 @@
     "weightedRank": 0,
     "week52Low": 15,
     "week52High": 20,
-    "totalReturn3Mo": 4.89,
-    "totalReturn6Mo": 8.41,
-    "totalReturn12Mo": -4.14,
-    "totalReturn3Yr": 6.43
+    "totalReturn3Mo": 4.44,
+    "totalReturn6Mo": 7.95,
+    "totalReturn12Mo": -4.56,
+    "totalReturn3Yr": 5.97
   },
   {
     "symbol": "FEPI",
@@ -888,10 +888,10 @@
     "weightedRank": 0,
     "week52Low": 38,
     "week52High": 52,
-    "totalReturn3Mo": -0.24,
-    "totalReturn6Mo": 6.98,
-    "totalReturn12Mo": -9.63,
-    "totalReturn3Yr": -9.41
+    "totalReturn3Mo": -1.36,
+    "totalReturn6Mo": 5.78,
+    "totalReturn12Mo": -10.65,
+    "totalReturn3Yr": -10.43
   },
   {
     "symbol": "HOOY",
@@ -910,10 +910,10 @@
     "weightedRank": 0,
     "week52Low": 38,
     "week52High": 68,
-    "totalReturn3Mo": -17,
-    "totalReturn6Mo": -5.92,
-    "totalReturn12Mo": 2.14,
-    "totalReturn3Yr": 2.14
+    "totalReturn3Mo": -18.28,
+    "totalReturn6Mo": -7.37,
+    "totalReturn12Mo": 0.56,
+    "totalReturn3Yr": 0.56
   },
   {
     "symbol": "HOOW",
@@ -932,10 +932,10 @@
     "weightedRank": 0,
     "week52Low": 42,
     "week52High": 70,
-    "totalReturn3Mo": -17.38,
-    "totalReturn6Mo": 4.2,
-    "totalReturn12Mo": 4.2,
-    "totalReturn3Yr": 4.2
+    "totalReturn3Mo": -18.58,
+    "totalReturn6Mo": 2.67,
+    "totalReturn12Mo": 2.67,
+    "totalReturn3Yr": 2.67
   },
   {
     "symbol": "QDTE",
@@ -954,10 +954,10 @@
     "weightedRank": 0,
     "week52Low": 28,
     "week52High": 45,
-    "totalReturn3Mo": -0.6,
-    "totalReturn6Mo": 3.8,
-    "totalReturn12Mo": -18.39,
-    "totalReturn3Yr": -23.64
+    "totalReturn3Mo": -1.56,
+    "totalReturn6Mo": 2.8,
+    "totalReturn12Mo": -19.18,
+    "totalReturn3Yr": -24.37
   },
   {
     "symbol": "JPMO",
@@ -976,10 +976,10 @@
     "weightedRank": 0,
     "week52Low": 12,
     "week52High": 20,
-    "totalReturn12Mo": -17.16,
-    "totalReturn6Mo": -0.27,
-    "totalReturn3Mo": -5.27,
-    "totalReturn3Yr": -22.16
+    "totalReturn12Mo": -18.35,
+    "totalReturn6Mo": -1.7,
+    "totalReturn3Mo": -6.63,
+    "totalReturn3Yr": -23.28
   },
   {
     "symbol": "YMAG",
@@ -998,10 +998,10 @@
     "weightedRank": 0,
     "week52Low": 11,
     "week52High": 20,
-    "totalReturn12Mo": -24.32,
-    "totalReturn6Mo": -4.25,
-    "totalReturn3Mo": -4.25,
-    "totalReturn3Yr": -27.78
+    "totalReturn12Mo": -24.83,
+    "totalReturn6Mo": -4.9,
+    "totalReturn3Mo": -4.9,
+    "totalReturn3Yr": -28.28
   },
   {
     "symbol": "MAGY",
@@ -1020,10 +1020,10 @@
     "weightedRank": 0,
     "week52Low": 45,
     "week52High": 62,
-    "totalReturn12Mo": 2.94,
-    "totalReturn6Mo": 0.14,
-    "totalReturn3Mo": -3.07,
-    "totalReturn3Yr": 2.94
+    "totalReturn12Mo": 2.26,
+    "totalReturn6Mo": -0.52,
+    "totalReturn3Mo": -3.71,
+    "totalReturn3Yr": 2.26
   },
   {
     "symbol": "MARQ",
@@ -1060,10 +1060,10 @@
     "weightedRank": 0,
     "week52Low": 9,
     "week52High": 16,
-    "totalReturn12Mo": -32.48,
-    "totalReturn6Mo": -14.69,
-    "totalReturn3Mo": -12.88,
-    "totalReturn3Yr": -40.64
+    "totalReturn12Mo": -32.77,
+    "totalReturn6Mo": -15.06,
+    "totalReturn3Mo": -13.26,
+    "totalReturn3Yr": -40.89
   },
   {
     "symbol": "FBY",
@@ -1082,10 +1082,10 @@
     "weightedRank": 0,
     "week52Low": 9,
     "week52High": 18,
-    "totalReturn3Mo": -22.6,
-    "totalReturn6Mo": -18.45,
-    "totalReturn12Mo": -33.72,
-    "totalReturn3Yr": -38.91
+    "totalReturn3Mo": -23.16,
+    "totalReturn6Mo": -19.03,
+    "totalReturn12Mo": -34.19,
+    "totalReturn3Yr": -39.35
   },
   {
     "symbol": "METW",
@@ -1104,10 +1104,10 @@
     "weightedRank": 0,
     "week52Low": 28,
     "week52High": 48,
-    "totalReturn12Mo": -29.83,
-    "totalReturn6Mo": -29.83,
-    "totalReturn3Mo": -31.82,
-    "totalReturn3Yr": -29.83
+    "totalReturn12Mo": -30.6,
+    "totalReturn6Mo": -30.6,
+    "totalReturn3Mo": -32.57,
+    "totalReturn3Yr": -30.6
   },
   {
     "symbol": "MSFY",
@@ -1126,10 +1126,10 @@
     "weightedRank": 0,
     "week52Low": 20,
     "week52High": 32,
-    "totalReturn3Mo": -3.19,
-    "totalReturn6Mo": 4.76,
-    "totalReturn12Mo": 1.47,
-    "totalReturn3Yr": 0.79
+    "totalReturn3Mo": -3.89,
+    "totalReturn6Mo": 4,
+    "totalReturn12Mo": 0.74,
+    "totalReturn3Yr": 0.06
   },
   {
     "symbol": "MSFO",
@@ -1148,10 +1148,10 @@
     "weightedRank": 0,
     "week52Low": 13,
     "week52High": 22,
-    "totalReturn12Mo": -10.84,
-    "totalReturn6Mo": -3.91,
-    "totalReturn3Mo": -3.41,
-    "totalReturn3Yr": -16.76
+    "totalReturn12Mo": -11.36,
+    "totalReturn6Mo": -4.46,
+    "totalReturn3Mo": -3.97,
+    "totalReturn3Yr": -17.24
   },
   {
     "symbol": "MSEW",
@@ -1188,10 +1188,10 @@
     "weightedRank": 0,
     "week52Low": 8,
     "week52High": 20,
-    "totalReturn12Mo": -57.39,
-    "totalReturn6Mo": -57.39,
-    "totalReturn3Mo": -51.4,
-    "totalReturn3Yr": -57.39
+    "totalReturn12Mo": -56.84,
+    "totalReturn6Mo": -56.84,
+    "totalReturn3Mo": -50.78,
+    "totalReturn3Yr": -56.84
   },
   {
     "symbol": "MSTY",
@@ -1210,10 +1210,10 @@
     "weightedRank": 0,
     "week52Low": 6,
     "week52High": 16,
-    "totalReturn12Mo": -76.68,
-    "totalReturn6Mo": -63.15,
-    "totalReturn3Mo": -54.81,
-    "totalReturn3Yr": -63.29
+    "totalReturn12Mo": -76.83,
+    "totalReturn6Mo": -63.38,
+    "totalReturn3Mo": -55.1,
+    "totalReturn3Yr": -63.52
   },
   {
     "symbol": "MSTW",
@@ -1232,10 +1232,10 @@
     "weightedRank": 0,
     "week52Low": 12,
     "week52High": 30,
-    "totalReturn12Mo": -69.46,
-    "totalReturn6Mo": -69.46,
-    "totalReturn3Mo": -61.63,
-    "totalReturn3Yr": -69.46
+    "totalReturn12Mo": -69.91,
+    "totalReturn6Mo": -69.91,
+    "totalReturn3Mo": -62.19,
+    "totalReturn3Yr": -69.91
   },
   {
     "symbol": "OQQJ",
@@ -1290,10 +1290,10 @@
     "weightedRank": 0,
     "week52Low": 35,
     "week52High": 52,
-    "totalReturn3Mo": 0.05,
-    "totalReturn6Mo": 6.63,
-    "totalReturn12Mo": -12.82,
-    "totalReturn3Yr": -12.82
+    "totalReturn3Mo": -0.82,
+    "totalReturn6Mo": 5.7,
+    "totalReturn12Mo": -13.58,
+    "totalReturn3Yr": -13.58
   },
   {
     "symbol": "GPIQ",
@@ -1312,10 +1312,10 @@
     "weightedRank": 0,
     "week52Low": 35,
     "week52High": 56,
-    "totalReturn3Mo": 3.57,
-    "totalReturn6Mo": 11.75,
-    "totalReturn12Mo": 6.58,
-    "totalReturn3Yr": 35.39
+    "totalReturn3Mo": 2.62,
+    "totalReturn6Mo": 10.73,
+    "totalReturn12Mo": 5.6,
+    "totalReturn3Yr": 34.16
   },
   {
     "symbol": "NFLZ",
@@ -1352,10 +1352,10 @@
     "weightedRank": 0,
     "week52Low": 11,
     "week52High": 20,
-    "totalReturn12Mo": -23.71,
-    "totalReturn6Mo": -22.36,
-    "totalReturn3Mo": -13.4,
-    "totalReturn3Yr": -25.01
+    "totalReturn12Mo": -24.76,
+    "totalReturn6Mo": -23.43,
+    "totalReturn3Mo": -14.59,
+    "totalReturn3Yr": -26.05
   },
   {
     "symbol": "NFLW",
@@ -1374,10 +1374,10 @@
     "weightedRank": 0,
     "week52Low": 28,
     "week52High": 48,
-    "totalReturn3Mo": -20.92,
-    "totalReturn6Mo": -29.71,
-    "totalReturn12Mo": -29.71,
-    "totalReturn3Yr": -29.71
+    "totalReturn3Mo": -21.79,
+    "totalReturn6Mo": -30.48,
+    "totalReturn12Mo": -30.48,
+    "totalReturn3Yr": -30.48
   },
   {
     "symbol": "NVYY",
@@ -1396,10 +1396,10 @@
     "weightedRank": 0,
     "week52Low": 17,
     "week52High": 32,
-    "totalReturn3Mo": -17.01,
-    "totalReturn6Mo": -12.38,
-    "totalReturn12Mo": -14.98,
-    "totalReturn3Yr": -14.98
+    "totalReturn3Mo": -17.05,
+    "totalReturn6Mo": -12.42,
+    "totalReturn12Mo": -15.02,
+    "totalReturn3Yr": -15.02
   },
   {
     "symbol": "NVDY",
@@ -1418,10 +1418,10 @@
     "weightedRank": 0,
     "week52Low": 11,
     "week52High": 24,
-    "totalReturn12Mo": -39.74,
-    "totalReturn6Mo": 2.03,
-    "totalReturn3Mo": -9.23,
-    "totalReturn3Yr": -23.25
+    "totalReturn12Mo": -39.94,
+    "totalReturn6Mo": 1.68,
+    "totalReturn3Mo": -9.54,
+    "totalReturn3Yr": -23.52
   },
   {
     "symbol": "NVDW",
@@ -1440,10 +1440,10 @@
     "weightedRank": 0,
     "week52Low": 35,
     "week52High": 68,
-    "totalReturn3Mo": -9.37,
-    "totalReturn6Mo": 10.74,
-    "totalReturn12Mo": -6.31,
-    "totalReturn3Yr": -6.31
+    "totalReturn3Mo": -10.11,
+    "totalReturn6Mo": 9.83,
+    "totalReturn12Mo": -7.08,
+    "totalReturn3Yr": -7.08
   },
   {
     "symbol": "NVII",
@@ -1462,10 +1462,10 @@
     "weightedRank": 0,
     "week52Low": 22,
     "week52High": 45,
-    "totalReturn3Mo": -4.61,
-    "totalReturn6Mo": 20.03,
-    "totalReturn12Mo": 20.03,
-    "totalReturn3Yr": 20.03
+    "totalReturn3Mo": -5.02,
+    "totalReturn6Mo": 19.51,
+    "totalReturn12Mo": 19.51,
+    "totalReturn3Yr": 19.51
   },
   {
     "symbol": "PLTY",
@@ -1484,10 +1484,10 @@
     "weightedRank": 0,
     "week52Low": 35,
     "week52High": 75,
-    "totalReturn3Mo": -7.51,
-    "totalReturn6Mo": -9.66,
-    "totalReturn12Mo": -16.8,
-    "totalReturn3Yr": 7.62
+    "totalReturn3Mo": -8.18,
+    "totalReturn6Mo": -10.32,
+    "totalReturn12Mo": -17.41,
+    "totalReturn3Yr": 6.83
   },
   {
     "symbol": "PLTW",
@@ -1506,10 +1506,10 @@
     "weightedRank": 0,
     "week52Low": 28,
     "week52High": 55,
-    "totalReturn3Mo": -11.82,
-    "totalReturn6Mo": -4.6,
-    "totalReturn12Mo": 0.83,
-    "totalReturn3Yr": 0.83
+    "totalReturn3Mo": -12.74,
+    "totalReturn6Mo": -5.59,
+    "totalReturn12Mo": -0.21,
+    "totalReturn3Yr": -0.21
   },
   {
     "symbol": "PLYY",
@@ -1528,10 +1528,10 @@
     "weightedRank": 0,
     "week52Low": 17,
     "week52High": 32,
-    "totalReturn3Mo": -13.52,
-    "totalReturn6Mo": -13.52,
-    "totalReturn12Mo": -13.52,
-    "totalReturn3Yr": -13.52
+    "totalReturn3Mo": -13.92,
+    "totalReturn6Mo": -13.92,
+    "totalReturn12Mo": -13.92,
+    "totalReturn3Yr": -13.92
   },
   {
     "symbol": "PYPY",
@@ -1550,10 +1550,10 @@
     "weightedRank": 0,
     "week52Low": 7,
     "week52High": 14,
-    "totalReturn3Mo": -18.54,
-    "totalReturn6Mo": -30.03,
-    "totalReturn12Mo": -50.67,
-    "totalReturn3Yr": -53.95
+    "totalReturn3Mo": -19.79,
+    "totalReturn6Mo": -31.1,
+    "totalReturn12Mo": -51.42,
+    "totalReturn3Yr": -54.66
   },
   {
     "symbol": "TQQY",
@@ -1572,10 +1572,10 @@
     "weightedRank": 0,
     "week52Low": 14,
     "week52High": 22,
-    "totalReturn3Mo": -5.49,
-    "totalReturn6Mo": -2.7,
-    "totalReturn12Mo": -29.29,
-    "totalReturn3Yr": -29.29
+    "totalReturn3Mo": -6.61,
+    "totalReturn6Mo": -3.86,
+    "totalReturn12Mo": -30.12,
+    "totalReturn3Yr": -30.12
   },
   {
     "symbol": "TDAQ",
@@ -1594,10 +1594,10 @@
     "weightedRank": 0,
     "week52Low": 22,
     "week52High": 30,
-    "totalReturn3Mo": 5.4,
-    "totalReturn6Mo": 5.4,
-    "totalReturn12Mo": 5.4,
-    "totalReturn3Yr": 5.4
+    "totalReturn3Mo": 4.32,
+    "totalReturn6Mo": 4.32,
+    "totalReturn12Mo": 4.32,
+    "totalReturn3Yr": 4.32
   },
   {
     "symbol": "RNTY",
@@ -1616,10 +1616,10 @@
     "weightedRank": 0,
     "week52Low": 42,
     "week52High": 55,
-    "totalReturn3Mo": -3.36,
-    "totalReturn6Mo": -4.04,
-    "totalReturn12Mo": -3.4,
-    "totalReturn3Yr": -3.4
+    "totalReturn3Mo": -3.66,
+    "totalReturn6Mo": -4.34,
+    "totalReturn12Mo": -3.71,
+    "totalReturn3Yr": -3.71
   },
   {
     "symbol": "IYRI",
@@ -1638,10 +1638,10 @@
     "weightedRank": 0,
     "week52Low": 42,
     "week52High": 55,
-    "totalReturn3Mo": -2.44,
-    "totalReturn6Mo": 1.34,
-    "totalReturn12Mo": -3.38,
-    "totalReturn3Yr": -3.38
+    "totalReturn3Mo": -2.86,
+    "totalReturn6Mo": 0.9,
+    "totalReturn12Mo": -3.8,
+    "totalReturn3Yr": -3.8
   },
   {
     "symbol": "QDVO",
@@ -1660,10 +1660,10 @@
     "weightedRank": 0,
     "week52Low": 24,
     "week52High": 35,
-    "totalReturn3Mo": 2.59,
-    "totalReturn6Mo": 12.46,
-    "totalReturn12Mo": 8.33,
-    "totalReturn3Yr": 17.37
+    "totalReturn3Mo": 2.06,
+    "totalReturn6Mo": 11.89,
+    "totalReturn12Mo": 7.77,
+    "totalReturn3Yr": 16.77
   },
   {
     "symbol": "IWMI",
@@ -1682,10 +1682,10 @@
     "weightedRank": 0,
     "week52Low": 38,
     "week52High": 54,
-    "totalReturn3Mo": 0.04,
-    "totalReturn6Mo": 8.95,
-    "totalReturn12Mo": -11.03,
-    "totalReturn3Yr": -4.92
+    "totalReturn3Mo": -1.49,
+    "totalReturn6Mo": 7.29,
+    "totalReturn12Mo": -12.39,
+    "totalReturn3Yr": -6.38
   },
   {
     "symbol": "RDTE",
@@ -1704,10 +1704,10 @@
     "weightedRank": 0,
     "week52Low": 25,
     "week52High": 42,
-    "totalReturn3Mo": -7.67,
-    "totalReturn6Mo": -6.17,
-    "totalReturn12Mo": -31.6,
-    "totalReturn3Yr": -28.58
+    "totalReturn3Mo": -9.12,
+    "totalReturn6Mo": -7.64,
+    "totalReturn12Mo": -32.67,
+    "totalReturn3Yr": -29.7
   },
   {
     "symbol": "RDTY",
@@ -1726,10 +1726,10 @@
     "weightedRank": 0,
     "week52Low": 35,
     "week52High": 52,
-    "totalReturn3Mo": -9.67,
-    "totalReturn6Mo": -7.89,
-    "totalReturn12Mo": -17.73,
-    "totalReturn3Yr": -17.73
+    "totalReturn3Mo": -11.05,
+    "totalReturn6Mo": -9.3,
+    "totalReturn12Mo": -18.98,
+    "totalReturn3Yr": -18.98
   },
   {
     "symbol": "NEOG",
@@ -1748,10 +1748,10 @@
     "weightedRank": 0,
     "week52Low": 42,
     "week52High": 56,
-    "totalReturn3Mo": 13.92,
-    "totalReturn6Mo": 6.02,
-    "totalReturn12Mo": -54.69,
-    "totalReturn3Yr": -57.45
+    "totalReturn3Mo": 13.83,
+    "totalReturn6Mo": 5.94,
+    "totalReturn12Mo": -54.72,
+    "totalReturn3Yr": -57.48
   },
   {
     "symbol": "MAXI",
@@ -1770,10 +1770,10 @@
     "weightedRank": 0,
     "week52Low": 42,
     "week52High": 60,
-    "totalReturn3Mo": -40.53,
-    "totalReturn6Mo": -43.51,
-    "totalReturn12Mo": -39.78,
-    "totalReturn3Yr": 70.05
+    "totalReturn3Mo": -43.49,
+    "totalReturn6Mo": -46.32,
+    "totalReturn12Mo": -42.77,
+    "totalReturn3Yr": 61.6
   },
   {
     "symbol": "XDTE",
@@ -1792,10 +1792,10 @@
     "weightedRank": 0,
     "week52Low": 35,
     "week52High": 52,
-    "totalReturn3Mo": -1.6,
-    "totalReturn6Mo": 1.82,
-    "totalReturn12Mo": -18.33,
-    "totalReturn3Yr": -16.61
+    "totalReturn3Mo": -2.54,
+    "totalReturn6Mo": 0.85,
+    "totalReturn12Mo": -19.11,
+    "totalReturn3Yr": -17.41
   },
   {
     "symbol": "GIAX",
@@ -1814,10 +1814,10 @@
     "weightedRank": 0,
     "week52Low": 14,
     "week52High": 20,
-    "totalReturn3Mo": -3.92,
-    "totalReturn6Mo": -1.58,
-    "totalReturn12Mo": -13.58,
-    "totalReturn3Yr": -12.24
+    "totalReturn3Mo": -5.17,
+    "totalReturn6Mo": -2.87,
+    "totalReturn12Mo": -14.71,
+    "totalReturn3Yr": -13.39
   },
   {
     "symbol": "TSLY",
@@ -1836,10 +1836,10 @@
     "weightedRank": 0,
     "week52Low": 20,
     "week52High": 28,
-    "totalReturn3Mo": -2.2,
-    "totalReturn6Mo": -14.67,
-    "totalReturn12Mo": -46.23,
-    "totalReturn3Yr": -81.03
+    "totalReturn3Mo": -4.28,
+    "totalReturn6Mo": -16.48,
+    "totalReturn12Mo": -47.37,
+    "totalReturn3Yr": -81.43
   },
   {
     "symbol": "GPIX",
@@ -1858,10 +1858,10 @@
     "weightedRank": 0,
     "week52Low": 35,
     "week52High": 56,
-    "totalReturn3Mo": 2.02,
-    "totalReturn6Mo": 9.93,
-    "totalReturn12Mo": 2.88,
-    "totalReturn3Yr": 33.56
+    "totalReturn3Mo": 1.14,
+    "totalReturn6Mo": 8.99,
+    "totalReturn12Mo": 1.99,
+    "totalReturn3Yr": 32.4
   },
   {
     "symbol": "XYLD",
@@ -1880,10 +1880,10 @@
     "weightedRank": 0,
     "week52Low": 32,
     "week52High": 44,
-    "totalReturn3Mo": 2.97,
-    "totalReturn6Mo": 5.94,
-    "totalReturn12Mo": -5,
-    "totalReturn3Yr": 0.26
+    "totalReturn3Mo": 2.78,
+    "totalReturn6Mo": 5.74,
+    "totalReturn12Mo": -5.17,
+    "totalReturn3Yr": 0.08
   },
   {
     "symbol": "SDTY",
@@ -1902,10 +1902,10 @@
     "weightedRank": 0,
     "week52Low": 38,
     "week52High": 52,
-    "totalReturn3Mo": -0.71,
-    "totalReturn6Mo": 4.51,
-    "totalReturn12Mo": -9.85,
-    "totalReturn3Yr": -9.85
+    "totalReturn3Mo": -1.48,
+    "totalReturn6Mo": 3.7,
+    "totalReturn12Mo": -10.55,
+    "totalReturn3Yr": -10.55
   },
   {
     "symbol": "SVYH",
@@ -1942,10 +1942,10 @@
     "weightedRank": 0,
     "week52Low": 42,
     "week52High": 62,
-    "totalReturn3Mo": 3.8,
-    "totalReturn6Mo": 10.62,
-    "totalReturn12Mo": 19.81,
-    "totalReturn3Yr": 19.81
+    "totalReturn3Mo": 2.68,
+    "totalReturn6Mo": 9.43,
+    "totalReturn12Mo": 18.52,
+    "totalReturn3Yr": 18.52
   },
   {
     "symbol": "SOXY",
@@ -1964,10 +1964,10 @@
     "weightedRank": 0,
     "week52Low": 45,
     "week52High": 65,
-    "totalReturn3Mo": 11.07,
-    "totalReturn6Mo": 26.57,
-    "totalReturn12Mo": 16.26,
-    "totalReturn3Yr": 16.26
+    "totalReturn3Mo": 9.85,
+    "totalReturn6Mo": 25.19,
+    "totalReturn12Mo": 14.99,
+    "totalReturn3Yr": 14.99
   },
   {
     "symbol": "SLJY",
@@ -1986,10 +1986,10 @@
     "weightedRank": 0,
     "week52Low": 22,
     "week52High": 34,
-    "totalReturn3Mo": 10.51,
-    "totalReturn6Mo": 10.51,
-    "totalReturn12Mo": 10.51,
-    "totalReturn3Yr": 10.51
+    "totalReturn3Mo": 9.07,
+    "totalReturn6Mo": 9.07,
+    "totalReturn12Mo": 9.07,
+    "totalReturn3Yr": 9.07
   },
   {
     "symbol": "SMCI",
@@ -2008,10 +2008,10 @@
     "weightedRank": 0,
     "week52Low": 7,
     "week52High": 28,
-    "totalReturn3Mo": -20.78,
-    "totalReturn6Mo": -13.3,
-    "totalReturn12Mo": 6.5,
-    "totalReturn3Yr": 313.71
+    "totalReturn3Mo": -22.29,
+    "totalReturn6Mo": -14.94,
+    "totalReturn12Mo": 4.47,
+    "totalReturn3Yr": 305.86
   },
   {
     "symbol": "YSPY",
@@ -2030,10 +2030,10 @@
     "weightedRank": 0,
     "week52Low": 15,
     "week52High": 23,
-    "totalReturn3Mo": -3.61,
-    "totalReturn6Mo": 0.02,
-    "totalReturn12Mo": -4.3,
-    "totalReturn3Yr": -4.3
+    "totalReturn3Mo": -5.11,
+    "totalReturn6Mo": -1.54,
+    "totalReturn12Mo": -5.79,
+    "totalReturn3Yr": -5.79
   },
   {
     "symbol": "BIGY",
@@ -2052,10 +2052,10 @@
     "weightedRank": 0,
     "week52Low": 42,
     "week52High": 58,
-    "totalReturn3Mo": 3.32,
-    "totalReturn6Mo": 13.04,
-    "totalReturn12Mo": 4.06,
-    "totalReturn3Yr": 5.09
+    "totalReturn3Mo": 2.44,
+    "totalReturn6Mo": 12.08,
+    "totalReturn12Mo": 3.17,
+    "totalReturn3Yr": 4.19
   },
   {
     "symbol": "OMAH",
@@ -2074,10 +2074,10 @@
     "weightedRank": 0,
     "week52Low": 15,
     "week52High": 22,
-    "totalReturn3Mo": -3.18,
-    "totalReturn6Mo": -0.6,
-    "totalReturn12Mo": -4.33,
-    "totalReturn3Yr": -4.33
+    "totalReturn3Mo": -4.17,
+    "totalReturn6Mo": -1.62,
+    "totalReturn12Mo": -5.31,
+    "totalReturn3Yr": -5.31
   },
   {
     "symbol": "YMTA",
@@ -2114,10 +2114,10 @@
     "weightedRank": 0,
     "week52Low": 22,
     "week52High": 35,
-    "totalReturn3Mo": 2.84,
-    "totalReturn6Mo": 17.38,
-    "totalReturn12Mo": 9.93,
-    "totalReturn3Yr": 20.39
+    "totalReturn3Mo": 2.14,
+    "totalReturn6Mo": 16.58,
+    "totalReturn12Mo": 9.19,
+    "totalReturn3Yr": 19.57
   },
   {
     "symbol": "TSLP",
@@ -2136,10 +2136,10 @@
     "weightedRank": 0,
     "week52Low": 15,
     "week52High": 32,
-    "totalReturn3Mo": 10.97,
-    "totalReturn6Mo": 5.31,
-    "totalReturn12Mo": -17.39,
-    "totalReturn3Yr": -8.8
+    "totalReturn3Mo": 9.95,
+    "totalReturn6Mo": 4.34,
+    "totalReturn12Mo": -18.15,
+    "totalReturn3Yr": -9.64
   },
   {
     "symbol": "TSYY",
@@ -2158,10 +2158,10 @@
     "weightedRank": 0,
     "week52Low": 4,
     "week52High": 15,
-    "totalReturn12Mo": -73.98,
-    "totalReturn6Mo": -45.02,
-    "totalReturn3Mo": -26.51,
-    "totalReturn3Yr": -73.98
+    "totalReturn12Mo": -74.19,
+    "totalReturn6Mo": -45.46,
+    "totalReturn3Mo": -27.1,
+    "totalReturn3Yr": -74.19
   },
   {
     "symbol": "TSII",
@@ -2180,10 +2180,10 @@
     "weightedRank": 0,
     "week52Low": 15,
     "week52High": 40,
-    "totalReturn3Mo": 11.37,
-    "totalReturn6Mo": 24.39,
-    "totalReturn12Mo": 24.39,
-    "totalReturn3Yr": 24.39
+    "totalReturn3Mo": 8.45,
+    "totalReturn6Mo": 21.13,
+    "totalReturn12Mo": 21.13,
+    "totalReturn3Yr": 21.13
   },
   {
     "symbol": "TSLY",
@@ -2202,10 +2202,10 @@
     "weightedRank": 0,
     "week52Low": 5,
     "week52High": 18,
-    "totalReturn3Mo": -2.2,
-    "totalReturn6Mo": -14.67,
-    "totalReturn12Mo": -46.23,
-    "totalReturn3Yr": -81.03
+    "totalReturn3Mo": -4.28,
+    "totalReturn6Mo": -16.48,
+    "totalReturn12Mo": -47.37,
+    "totalReturn3Yr": -81.43
   },
   {
     "symbol": "TSLW",
@@ -2224,10 +2224,10 @@
     "weightedRank": 0,
     "week52Low": 22,
     "week52High": 55,
-    "totalReturn3Mo": 1.3,
-    "totalReturn6Mo": -16.9,
-    "totalReturn12Mo": -29.22,
-    "totalReturn3Yr": -29.22
+    "totalReturn3Mo": -2.42,
+    "totalReturn6Mo": -19.96,
+    "totalReturn12Mo": -31.82,
+    "totalReturn3Yr": -31.82
   },
   {
     "symbol": "TSMY",
@@ -2246,10 +2246,10 @@
     "weightedRank": 0,
     "week52Low": 11,
     "week52High": 22,
-    "totalReturn12Mo": -17.56,
-    "totalReturn6Mo": 1.64,
-    "totalReturn3Mo": 1.24,
-    "totalReturn3Yr": -22.89
+    "totalReturn12Mo": -17.4,
+    "totalReturn6Mo": 1.84,
+    "totalReturn3Mo": 1.44,
+    "totalReturn3Yr": -22.74
   },
   {
     "symbol": "ULTY",
@@ -2268,10 +2268,10 @@
     "weightedRank": 0,
     "week52Low": 3,
     "week52High": 8,
-    "totalReturn3Mo": -27.53,
-    "totalReturn6Mo": -31.8,
-    "totalReturn12Mo": -58.73,
-    "totalReturn3Yr": -79.2
+    "totalReturn3Mo": -28.22,
+    "totalReturn6Mo": -32.46,
+    "totalReturn12Mo": -59.13,
+    "totalReturn3Yr": -79.4
   },
   {
     "symbol": "WPAY",
@@ -2290,10 +2290,10 @@
     "weightedRank": 0,
     "week52Low": 38,
     "week52High": 58,
-    "totalReturn12Mo": -6.24,
-    "totalReturn6Mo": -6.24,
-    "totalReturn3Mo": -6.24,
-    "totalReturn3Yr": -6.24
+    "totalReturn12Mo": -7.44,
+    "totalReturn6Mo": -7.44,
+    "totalReturn3Mo": -7.44,
+    "totalReturn3Yr": -7.44
   },
   {
     "symbol": "XOMO",
@@ -2312,10 +2312,10 @@
     "weightedRank": 0,
     "week52Low": 9,
     "week52High": 16,
-    "totalReturn3Mo": -2.14,
-    "totalReturn6Mo": -3.65,
-    "totalReturn12Mo": -25.97,
-    "totalReturn3Yr": -41.37
+    "totalReturn3Mo": -2.82,
+    "totalReturn6Mo": -4.32,
+    "totalReturn12Mo": -26.48,
+    "totalReturn3Yr": -41.78
   },
   {
     "symbol": "XYZY",
@@ -2334,9 +2334,9 @@
     "weightedRank": 0,
     "week52Low": 5,
     "week52High": 14,
-    "totalReturn12Mo": -64.9,
-    "totalReturn6Mo": -28.82,
-    "totalReturn3Mo": -33.27,
-    "totalReturn3Yr": -63.96
+    "totalReturn12Mo": -65.38,
+    "totalReturn6Mo": -29.79,
+    "totalReturn3Mo": -34.18,
+    "totalReturn3Yr": -64.46
   }
 ]
