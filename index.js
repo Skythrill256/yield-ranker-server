@@ -640,29 +640,58 @@ app.post("/api/yahoo-finance", async (req, res) => {
 
 app.post("/api/send-email", async (req, res) => {
   try {
+    console.log("Incoming email request:", req.body);
+
     const { subject, html, text } = req.body;
 
-    if (!process.env.RESEND_API_KEY) {
-      return res.status(500).json({ error: "RESEND_API_KEY is not set" });
+    if (!subject || !html) {
+      return res.status(400).json({
+        error: "Subject and HTML body are required",
+      });
     }
+
+    if (!process.env.RESEND_API_KEY) {
+      console.error("RESEND_API_KEY is missing");
+      return res.status(500).json({ error: "Email service not configured" });
+    }
+
+    // Log what we're sending to Resend
+    console.log("Sending email via Resend with:", {
+      from: "Yield Ranker <onboarding@resend.dev>",
+      to: ["dandtotalreturns@gmail.com"],
+      subject,
+    });
 
     const { data, error } = await resend.emails.send({
       from: "Yield Ranker <onboarding@resend.dev>",
       to: ["anjishnuganguly773@gmail.com"],
-      subject: subject || "Notification from Yield Ranker",
-      html: html || "<p>No content provided</p>",
-      text: text,
+      subject,
+      html,
+      text: text || "",
     });
 
     if (error) {
-      console.error("Resend error:", error);
-      return res.status(400).json({ error });
+      console.error("Resend error:", error); // EXACT error
+      return res.status(400).json({
+        success: false,
+        error: error.message || error,
+      });
     }
 
-    res.json({ success: true, data });
-  } catch (error) {
-    console.error("Error sending email:", error);
-    res.status(500).json({ error: "Failed to send email" });
+    console.log("Email sent successfully:", data);
+
+    res.status(200).json({
+      success: true,
+      message: "Email sent",
+      data,
+    });
+
+  } catch (err) {
+    console.error("Unexpected server error:", err);
+    res.status(500).json({
+      success: false,
+      error: err.message || "Unexpected error",
+    });
   }
 });
 
