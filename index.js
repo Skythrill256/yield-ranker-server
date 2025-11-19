@@ -226,6 +226,37 @@ app.post("/api/admin/upload-dtr", upload.single("file"), async (req, res) => {
       });
     }
 
+    const uploadedSymbols = etfsToUpsert.map(etf => etf.symbol);
+
+    const { data: existingEtfs, error: fetchError } = await supabase
+      .from("etfs")
+      .select("symbol");
+
+    if (fetchError) {
+      console.error("Error fetching existing ETFs:", fetchError);
+    }
+
+    let deletedCount = 0;
+    if (existingEtfs && existingEtfs.length > 0) {
+      const symbolsToDelete = existingEtfs
+        .map(etf => etf.symbol)
+        .filter(symbol => !uploadedSymbols.includes(symbol));
+
+      if (symbolsToDelete.length > 0) {
+        const { error: deleteError } = await supabase
+          .from("etfs")
+          .delete()
+          .in("symbol", symbolsToDelete);
+
+        if (deleteError) {
+          console.error("Error deleting old ETFs:", deleteError);
+        } else {
+          deletedCount = symbolsToDelete.length;
+          console.log(`Deleted ${deletedCount} ETFs no longer in upload: ${symbolsToDelete.join(', ')}`);
+        }
+      }
+    }
+
     const { data, error } = await supabase
       .from("etfs")
       .upsert(etfsToUpsert, { onConflict: "symbol" });
@@ -245,13 +276,18 @@ app.post("/api/admin/upload-dtr", upload.single("file"), async (req, res) => {
       fs.unlinkSync(filePath);
     }
 
-    const responseMessage = skippedRows > 0
-      ? `Successfully processed ${etfsToUpsert.length} ETFs (${skippedRows} rows skipped)`
-      : `Successfully processed ${etfsToUpsert.length} ETFs`;
+    let responseMessage = `Successfully processed ${etfsToUpsert.length} ETFs`;
+    if (deletedCount > 0) {
+      responseMessage += ` (removed ${deletedCount} old ETFs)`;
+    }
+    if (skippedRows > 0) {
+      responseMessage += ` (${skippedRows} rows skipped)`;
+    }
 
     res.json({
       success: true,
       count: etfsToUpsert.length,
+      deleted: deletedCount,
       message: responseMessage,
     });
   } catch (error) {
@@ -801,3 +837,4 @@ app.use("/static", express.static(path.join(__dirname)));
 app.listen(port, () => {
   process.stdout.write(`Server running on port ${port}\n`);
 });
+
