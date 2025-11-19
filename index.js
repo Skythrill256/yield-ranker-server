@@ -664,7 +664,7 @@ app.post("/api/send-email", async (req, res) => {
 
     const { data, error } = await resend.emails.send({
       from: "Yield Ranker <onboarding@resend.dev>",
-      to: ["anjishnuganguly773@gmail.com"],
+      to: ["dandtotalreturns@gmail.com"],
       subject,
       html,
       text: text || "",
