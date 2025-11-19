@@ -282,7 +282,22 @@ app.get("/api/etfs", async (req, res) => {
       return res.status(500).json({ error: "Failed to fetch ETFs" });
     }
 
-    res.json({ data: data || [], count: count || 0 });
+    let lastUpdated = null;
+    if (data && data.length > 0 && data[0].spreadsheet_updated_at) {
+      const timestamp = new Date(data[0].spreadsheet_updated_at);
+      const formattedDate = timestamp.toLocaleDateString('en-US', {
+        month: 'numeric',
+        day: 'numeric',
+        year: 'numeric'
+      });
+      lastUpdated = `EOD ${formattedDate}`;
+    }
+
+    res.json({ 
+      data: data || [], 
+      count: count || 0,
+      last_updated: lastUpdated
+    });
   } catch (error) {
     console.error("Error fetching ETFs:", error);
     res.status(500).json({ error: "Failed to fetch ETFs" });
@@ -613,6 +628,114 @@ app.post("/api/yahoo-finance", async (req, res) => {
       error: "Failed to handle Yahoo Finance request",
       message: error.message,
     });
+  }
+});
+
+app.get("/api/admin/message", async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from("site_messages")
+      .select("*")
+      .eq("message_type", "admin_message")
+      .eq("is_active", true)
+      .single();
+
+    if (error && error.code !== 'PGRST116') {
+      throw error;
+    }
+
+    res.json({
+      success: true,
+      data: data || { content: "" }
+    });
+  } catch (error) {
+    console.error("Error fetching admin message:", error);
+    res.status(500).json({ error: "Failed to fetch admin message" });
+  }
+});
+
+app.put("/api/admin/message", async (req, res) => {
+  try {
+    const { content, is_active } = req.body;
+
+    if (content === undefined) {
+      return res.status(400).json({ error: "Content is required" });
+    }
+
+    const { data, error } = await supabase
+      .from("site_messages")
+      .upsert({
+        message_type: "admin_message",
+        content: content.trim(),
+        is_active: is_active !== undefined ? is_active : true
+      }, { onConflict: "message_type" })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    res.json({
+      success: true,
+      message: "Admin message updated successfully",
+      data
+    });
+  } catch (error) {
+    console.error("Error updating admin message:", error);
+    res.status(500).json({ error: "Failed to update admin message" });
+  }
+});
+
+app.get("/api/disclosure", async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from("site_messages")
+      .select("*")
+      .eq("message_type", "disclosure")
+      .eq("is_active", true)
+      .single();
+
+    if (error && error.code !== 'PGRST116') {
+      throw error;
+    }
+
+    res.json({
+      success: true,
+      data: data || { content: "This website is for informational purposes only." }
+    });
+  } catch (error) {
+    console.error("Error fetching disclosure:", error);
+    res.status(500).json({ error: "Failed to fetch disclosure" });
+  }
+});
+
+app.put("/api/disclosure", async (req, res) => {
+  try {
+    const { content, is_active } = req.body;
+
+    if (content === undefined) {
+      return res.status(400).json({ error: "Content is required" });
+    }
+
+    const { data, error } = await supabase
+      .from("site_messages")
+      .upsert({
+        message_type: "disclosure",
+        content: content.trim(),
+        is_active: is_active !== undefined ? is_active : true
+      }, { onConflict: "message_type" })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    res.json({
+      success: true,
+      message: "Disclosure updated successfully",
+      data
+    });
+  } catch (error) {
+    console.error("Error updating disclosure:", error);
+    res.status(500).json({ error: "Failed to update disclosure" });
   }
 });
 
