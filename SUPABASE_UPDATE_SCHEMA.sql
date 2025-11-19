@@ -14,3 +14,5 @@ FROM information_schema.columns
 WHERE table_name = 'etfs' 
 ORDER BY ordinal_position;
 
+
+
