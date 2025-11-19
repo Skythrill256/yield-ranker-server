@@ -7,6 +7,7 @@ import multer from "multer";
 import XLSX from "xlsx";
 import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
+import { Resend } from "resend";
 import {
   fetchQuoteDirect,
   fetchBatchQuotesDirect,
@@ -19,6 +20,8 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 4000;
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -632,6 +635,34 @@ app.post("/api/yahoo-finance", async (req, res) => {
       error: "Failed to handle Yahoo Finance request",
       message: error.message,
     });
+  }
+});
+
+app.post("/api/send-email", async (req, res) => {
+  try {
+    const { subject, html, text } = req.body;
+
+    if (!process.env.RESEND_API_KEY) {
+      return res.status(500).json({ error: "RESEND_API_KEY is not set" });
+    }
+
+    const { data, error } = await resend.emails.send({
+      from: "Yield Ranker <onboarding@resend.dev>",
+      to: ["anjishnuganguly773@gmail.com"],
+      subject: subject || "Notification from Yield Ranker",
+      html: html || "<p>No content provided</p>",
+      text: text,
+    });
+
+    if (error) {
+      console.error("Resend error:", error);
+      return res.status(400).json({ error });
+    }
+
+    res.json({ success: true, data });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res.status(500).json({ error: "Failed to send email" });
   }
 });
 
