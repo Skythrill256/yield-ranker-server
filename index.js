@@ -215,7 +215,29 @@ app.get("/api/etfs", async (req, res) => {
       return res.status(500).json({ error: "Failed to fetch ETFs" });
     }
 
-    res.json({ data: data || [], count: count || 0 });
+    let lastUpdated = null;
+    let lastUpdatedTimestamp = null;
+    
+    if (data && data.length > 0) {
+      const etfWithUpdate = data.find(etf => etf.spreadsheet_updated_at) || data[0];
+      if (etfWithUpdate?.spreadsheet_updated_at) {
+        lastUpdatedTimestamp = etfWithUpdate.spreadsheet_updated_at;
+        const timestamp = new Date(etfWithUpdate.spreadsheet_updated_at);
+        const formattedDate = timestamp.toLocaleDateString('en-US', {
+          month: 'numeric',
+          day: 'numeric',
+          year: 'numeric'
+        });
+        lastUpdated = `EOD ${formattedDate}`;
+      }
+    }
+
+    res.json({ 
+      data: data || [], 
+      count: count || 0,
+      last_updated: lastUpdated,
+      last_updated_timestamp: lastUpdatedTimestamp
+    });
   } catch (error) {
     console.error("Error fetching ETFs:", error);
     res.status(500).json({ error: "Failed to fetch ETFs" });
