@@ -81,124 +81,226 @@ app.post("/api/admin/upload-dtr", upload.single("file"), async (req, res) => {
     }
 
     filePath = req.file.path;
-    const workbook = XLSX.readFile(filePath);
+    console.log(`Processing file: ${req.file.originalname}, size: ${req.file.size} bytes`);
+
+    let workbook;
+    try {
+      workbook = XLSX.readFile(filePath);
+    } catch (error) {
+      console.error("Error reading Excel file:", error);
+      if (filePath && fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+      return res.status(400).json({ 
+        error: "Invalid Excel file format", 
+        details: error.message 
+      });
+    }
+
+    if (!workbook.SheetNames || workbook.SheetNames.length === 0) {
+      if (filePath && fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+      return res.status(400).json({ error: "Excel file has no sheets" });
+    }
+
     const sheetName = workbook.SheetNames[0];
     const sheet = workbook.Sheets[sheetName];
     const rawData = XLSX.utils.sheet_to_json(sheet, { defval: null });
 
     if (!rawData || rawData.length === 0) {
+      if (filePath && fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
       return res.status(400).json({ error: "Excel file is empty" });
     }
 
-    const columnMapping = {
-      SYMBOL: "symbol",
-      Issuer: "issuer",
-      DESC: "description",
-      "Pay Day": "pay_day",
-      "IPO PRICE": "ipo_price",
-      Price: "price",
-      "Price Cha": "price_change",
-      "Price Change": "price_change",
-      Dividend: "dividend",
-      "# Pmts": "payments_per_year",
-      "Annual Div": "annual_div",
-      "Forward Y": "forward_yield",
-      "Forward Yield": "forward_yield",
-      "Dividend Vo": "dividend_volatility_index",
-      "Dividend Volatility": "dividend_volatility_index",
-      "Weighted": "weighted_rank",
-      "Weighted Rank": "weighted_rank",
-      "3 YR Annlz": "three_year_annualized",
-      "3 Year Annualized": "three_year_annualized",
-      "12 Month": "total_return_12m",
-      "6 Month": "total_return_6m",
-      "3 Month": "total_return_3m",
-      "1 Month": "total_return_1m",
-      "1 Week": "total_return_1w",
+    console.log(`Found ${rawData.length} rows in Excel file`);
+
+    const headers = Object.keys(rawData[0] || {});
+    const headerMap = {};
+    headers.forEach((h) => {
+      if (!h) return;
+      const key = String(h).trim().toLowerCase();
+      headerMap[key] = h;
+    });
+
+    const findColumn = (...names) => {
+      for (const name of names) {
+        const key = name.toLowerCase();
+        if (headerMap[key] !== undefined) {
+          return headerMap[key];
+        }
+      }
+      return null;
     };
+
+    const symbolCol = findColumn('symbol', 'symbols');
+    if (!symbolCol) {
+      if (filePath && fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+      return res.status(400).json({ 
+        error: "SYMBOL column not found in Excel file",
+        details: `Available columns: ${headers.slice(0, 10).join(', ')}...`
+      });
+    }
+
+    const nameCol = findColumn('name');
+    const issuerCol = findColumn('issuer');
+    const descCol = findColumn('desc', 'description');
+    const payDayCol = findColumn('pay day', 'pay_day');
+    const ipoPriceCol = findColumn('ipo price', 'ipo_price');
+    const priceCol = findColumn('price', 'current price');
+    const priceChangeCol = findColumn('price change', 'price cha');
+    const dividendCol = findColumn('dividend');
+    const pmtsCol = findColumn('# pmts', '# pmts.', '# pmts ', '# payments');
+    const annualDivCol = findColumn('annual div', 'annual dividend');
+    const forwardYieldCol = findColumn('forward yield', 'forward y');
+    const divVolatilityCol = findColumn('dividend volatility index', 'dividend vo', 'dividend volatility', 'standard deviation', 'std dev');
+    const weightedRankCol = findColumn('weighted rank', 'weighted');
+    const threeYrCol = findColumn('3 yr annlzd', '3 yr annlz', '3 yr ann.', '3 yr ann', '3 year annualized', '3 yr total return');
+    const twelveMonthCol = findColumn('12 month', '12 mo total return', '12 month total return');
+    const sixMonthCol = findColumn('6 month', '6 mo total return');
+    const threeMonthCol = findColumn('3 month', '3 mo total return');
+    const oneMonthCol = findColumn('1 month', '1 mo total return');
+    const oneWeekCol = findColumn('1 week', '1 wk total return');
+    const week52LowCol = findColumn('52 week low', 'week_52_low');
+    const week52HighCol = findColumn('52 week high', 'week_52_high');
 
     const parseNumeric = (val) => {
       if (val === null || val === undefined || val === "") return null;
       if (typeof val === "number") return val;
       const str = String(val).trim();
-      if (str.toLowerCase() === "n/a" || str === "") return null;
-      const parsed = parseFloat(str.replace(/[^0-9.-]/g, ""));
+      if (str.toLowerCase() === "n/a" || str === "" || str === "-") return null;
+      const cleaned = str.replace(/[^0-9.-]/g, "");
+      const parsed = parseFloat(cleaned);
       return isNaN(parsed) ? null : parsed;
     };
 
     const etfsToUpsert = [];
     const now = new Date().toISOString();
+    let skippedRows = 0;
 
     for (const row of rawData) {
-      const symbolValue = row.SYMBOL || row.Symbol || row.symbol;
-      if (!symbolValue) continue;
+      const symbolValue = symbolCol ? row[symbolCol] : null;
+      if (!symbolValue) {
+        skippedRows++;
+        continue;
+      }
 
       const symbol = String(symbolValue).trim().toUpperCase();
-      if (!symbol) continue;
+      if (!symbol) {
+        skippedRows++;
+        continue;
+      }
 
       const etfData = {
         symbol,
         spreadsheet_updated_at: now,
+        name: nameCol && row[nameCol] ? String(row[nameCol]).trim() : null,
+        issuer: issuerCol && row[issuerCol] ? String(row[issuerCol]).trim() : null,
+        description: descCol && row[descCol] ? String(row[descCol]).trim() : null,
+        pay_day: payDayCol && row[payDayCol] ? String(row[payDayCol]).trim() : null,
+        ipo_price: ipoPriceCol ? parseNumeric(row[ipoPriceCol]) : null,
+        price: priceCol ? parseNumeric(row[priceCol]) : null,
+        price_change: priceChangeCol ? parseNumeric(row[priceChangeCol]) : null,
+        dividend: dividendCol ? parseNumeric(row[dividendCol]) : null,
+        payments_per_year: pmtsCol ? parseNumeric(row[pmtsCol]) : null,
+        annual_div: annualDivCol ? parseNumeric(row[annualDivCol]) : null,
+        forward_yield: forwardYieldCol ? parseNumeric(row[forwardYieldCol]) : null,
+        dividend_volatility_index: divVolatilityCol ? parseNumeric(row[divVolatilityCol]) : null,
+        weighted_rank: weightedRankCol ? parseNumeric(row[weightedRankCol]) : null,
+        three_year_annualized: threeYrCol ? parseNumeric(row[threeYrCol]) : null,
+        total_return_12m: twelveMonthCol ? parseNumeric(row[twelveMonthCol]) : null,
+        total_return_6m: sixMonthCol ? parseNumeric(row[sixMonthCol]) : null,
+        total_return_3m: threeMonthCol ? parseNumeric(row[threeMonthCol]) : null,
+        total_return_1m: oneMonthCol ? parseNumeric(row[oneMonthCol]) : null,
+        total_return_1w: oneWeekCol ? parseNumeric(row[oneWeekCol]) : null,
+        week_52_low: week52LowCol ? parseNumeric(row[week52LowCol]) : null,
+        week_52_high: week52HighCol ? parseNumeric(row[week52HighCol]) : null,
       };
-
-      for (const [excelCol, dbCol] of Object.entries(columnMapping)) {
-        if (excelCol === "SYMBOL") continue;
-        
-        let value = row[excelCol];
-        
-        if (value === undefined) {
-          for (const key of Object.keys(row)) {
-            if (key.startsWith(excelCol)) {
-              value = row[key];
-              break;
-            }
-          }
-        }
-
-        if (dbCol === "issuer" || dbCol === "description" || dbCol === "pay_day") {
-          etfData[dbCol] = value ? String(value).trim() : null;
-        } else {
-          etfData[dbCol] = parseNumeric(value);
-        }
-
-      }
 
       etfsToUpsert.push(etfData);
     }
 
     if (etfsToUpsert.length === 0) {
-      return res.status(400).json({ error: "No valid ETF data found. Make sure SYMBOL column exists." });
+      if (filePath && fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+      return res.status(400).json({ 
+        error: "No valid ETF data found. Make sure SYMBOL column exists and has values." 
+      });
     }
 
+    console.log(`Processing ${etfsToUpsert.length} ETFs, ${skippedRows} rows skipped`);
+
+    console.log("Clearing existing ETFs...");
+    const { error: deleteAllError } = await supabase
+      .from("etfs")
+      .delete()
+      .neq("symbol", "");
+
+    if (deleteAllError) {
+      console.error("Error clearing existing ETFs:", deleteAllError);
+      if (filePath && fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+      return res.status(500).json({
+        error: "Failed to clear existing data",
+        details: deleteAllError.message
+      });
+    }
+
+    console.log("Inserting new ETFs...");
     const { data, error } = await supabase
       .from("etfs")
-      .upsert(etfsToUpsert, { onConflict: "symbol" });
+      .insert(etfsToUpsert);
 
     if (error) {
-      console.error("Supabase upsert error:", error);
-      return res.status(500).json({ error: "Failed to upsert data to database", details: error.message });
+      console.error("Supabase insert error:", error);
+      if (filePath && fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+      return res.status(500).json({
+        error: "Failed to save data to database",
+        details: error.message,
+        code: error.code
+      });
     }
 
     if (filePath && fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
     }
 
+    const responseMessage = skippedRows > 0
+      ? `Successfully replaced all data with ${etfsToUpsert.length} ETFs (${skippedRows} rows skipped)`
+      : `Successfully replaced all data with ${etfsToUpsert.length} ETFs`;
+
+    console.log(`Upload successful: ${responseMessage}`);
+
     res.json({
-      message: `Successfully processed ${etfsToUpsert.length} ETFs`,
+      success: true,
       count: etfsToUpsert.length,
+      skipped: skippedRows,
+      message: responseMessage,
     });
   } catch (error) {
     console.error("Upload error:", error);
+    console.error("Error stack:", error.stack);
     
     if (filePath && fs.existsSync(filePath)) {
       try {
         fs.unlinkSync(filePath);
-      } catch (e) {}
+      } catch (e) {
+        console.error("Error deleting file:", e);
+      }
     }
 
     res.status(500).json({
       error: "Failed to process Excel file",
       message: error.message,
+      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
 });

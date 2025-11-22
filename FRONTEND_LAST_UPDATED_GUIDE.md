@@ -398,3 +398,4 @@ const { last_updated } = await response.json();
 
 The backend is ready - just fetch and display! 🚀
 
+
