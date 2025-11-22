@@ -4,7 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
 import multer from "multer";
-import * as XLSX from "xlsx";
+import XLSX from "xlsx";
 import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
 import {
@@ -74,7 +74,7 @@ app.get("/api/health", (req, res) => {
 
 app.post("/api/admin/upload-dtr", upload.single("file"), async (req, res) => {
   let filePath = null;
-  
+
   try {
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
@@ -91,9 +91,9 @@ app.post("/api/admin/upload-dtr", upload.single("file"), async (req, res) => {
       if (filePath && fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
       }
-      return res.status(400).json({ 
-        error: "Invalid Excel file format", 
-        details: error.message 
+      return res.status(400).json({
+        error: "Invalid Excel file format",
+        details: error.message
       });
     }
 
@@ -106,7 +106,31 @@ app.post("/api/admin/upload-dtr", upload.single("file"), async (req, res) => {
 
     const sheetName = workbook.SheetNames[0];
     const sheet = workbook.Sheets[sheetName];
-    const rawData = XLSX.utils.sheet_to_json(sheet, { defval: null });
+
+    // First, find the header row
+    const allRows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+    let headerRowIndex = 0;
+    let foundHeader = false;
+
+    // Search first 20 rows for a header row containing "symbol" or "ticker"
+    for (let i = 0; i < Math.min(allRows.length, 20); i++) {
+      const row = allRows[i];
+      if (!Array.isArray(row)) continue;
+      const rowStr = row.map(c => String(c).toLowerCase().trim());
+      if (rowStr.includes('symbol') || rowStr.includes('symbols') || rowStr.includes('ticker')) {
+        headerRowIndex = i;
+        foundHeader = true;
+        console.log(`Found header row at index ${i}:`, row);
+        break;
+      }
+    }
+
+    if (!foundHeader) {
+      console.log("Could not find explicit header row with 'symbol' or 'ticker'. Using first row.");
+      if (allRows.length > 0) console.log("First row:", allRows[0]);
+    }
+
+    const rawData = XLSX.utils.sheet_to_json(sheet, { range: headerRowIndex, defval: null });
 
     if (!rawData || rawData.length === 0) {
       if (filePath && fs.existsSync(filePath)) {
@@ -135,14 +159,15 @@ app.post("/api/admin/upload-dtr", upload.single("file"), async (req, res) => {
       return null;
     };
 
-    const symbolCol = findColumn('symbol', 'symbols');
+    const symbolCol = findColumn('symbol', 'symbols', 'ticker');
     if (!symbolCol) {
       if (filePath && fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
       }
-      return res.status(400).json({ 
+      console.log("Available headers:", headers);
+      return res.status(400).json({
         error: "SYMBOL column not found in Excel file",
-        details: `Available columns: ${headers.slice(0, 10).join(', ')}...`
+        details: `Available columns: ${headers.join(', ')}`
       });
     }
 
@@ -228,8 +253,8 @@ app.post("/api/admin/upload-dtr", upload.single("file"), async (req, res) => {
       if (filePath && fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
       }
-      return res.status(400).json({ 
-        error: "No valid ETF data found. Make sure SYMBOL column exists and has values." 
+      return res.status(400).json({
+        error: "No valid ETF data found. Make sure SYMBOL column exists and has values."
       });
     }
 
@@ -288,7 +313,7 @@ app.post("/api/admin/upload-dtr", upload.single("file"), async (req, res) => {
   } catch (error) {
     console.error("Upload error:", error);
     console.error("Error stack:", error.stack);
-    
+
     if (filePath && fs.existsSync(filePath)) {
       try {
         fs.unlinkSync(filePath);
@@ -319,7 +344,7 @@ app.get("/api/etfs", async (req, res) => {
 
     let lastUpdated = null;
     let lastUpdatedTimestamp = null;
-    
+
     if (data && data.length > 0) {
       const etfWithUpdate = data.find(etf => etf.spreadsheet_updated_at) || data[0];
       if (etfWithUpdate?.spreadsheet_updated_at) {
@@ -334,8 +359,8 @@ app.get("/api/etfs", async (req, res) => {
       }
     }
 
-    res.json({ 
-      data: data || [], 
+    res.json({
+      data: data || [],
       count: count || 0,
       last_updated: lastUpdated,
       last_updated_timestamp: lastUpdatedTimestamp
@@ -349,7 +374,7 @@ app.get("/api/etfs", async (req, res) => {
 app.get("/api/etfs/:symbol", async (req, res) => {
   try {
     const symbol = req.params.symbol.toUpperCase();
-    
+
     const { data, error } = await supabase
       .from("etfs")
       .select("*")
@@ -379,16 +404,16 @@ app.get("/api/yahoo-finance/returns", async (req, res) => {
     }
 
     const quote = await fetchQuoteDirect(symbol);
-    
+
     const result = await fetchComparisonChartsDirect([symbol], "3Y");
     const historical = result.data[symbol] || { timestamps: [], closes: [] };
-    
+
     const calculateReturn = (closes, timestamps, months) => {
       if (!closes || closes.length < 2) return null;
       const currentPrice = closes[closes.length - 1];
       const currentTime = timestamps[timestamps.length - 1];
       const targetTime = currentTime - (months * 30 * 24 * 60 * 60);
-      
+
       let closestIndex = 0;
       let closestDiff = Math.abs(timestamps[0] - targetTime);
       for (let i = 1; i < timestamps.length; i++) {
@@ -398,7 +423,7 @@ app.get("/api/yahoo-finance/returns", async (req, res) => {
           closestIndex = i;
         }
       }
-      
+
       const pastPrice = closes[closestIndex];
       if (!pastPrice || pastPrice <= 0 || !currentPrice || currentPrice <= 0) return null;
       return ((currentPrice - pastPrice) / pastPrice) * 100;
@@ -409,7 +434,7 @@ app.get("/api/yahoo-finance/returns", async (req, res) => {
       const currentPrice = closes[closes.length - 1];
       const currentTime = timestamps[timestamps.length - 1];
       const targetTime = currentTime - (7 * 24 * 60 * 60);
-      
+
       let closestIndex = closes.length - 1;
       let closestDiff = Infinity;
       for (let i = closes.length - 1; i >= 0; i--) {
@@ -419,7 +444,7 @@ app.get("/api/yahoo-finance/returns", async (req, res) => {
           closestIndex = i;
         }
       }
-      
+
       const pastPrice = closes[closestIndex];
       if (!pastPrice || pastPrice <= 0 || !currentPrice || currentPrice <= 0) return null;
       return ((currentPrice - pastPrice) / pastPrice) * 100;
@@ -463,7 +488,7 @@ app.get("/api/yahoo-finance/dividends", async (req, res) => {
     if (!symbol) {
       return res.status(400).json({ error: "symbol is required" });
     }
-    
+
     const result = await fetchDividendHistoryDirect(symbol);
     res.json(result);
   } catch (error) {
@@ -528,22 +553,22 @@ app.get("/api/yahoo-finance/total-returns", async (req, res) => {
     if (!symbol) {
       return res.status(400).json({ error: "symbol is required" });
     }
-    
+
     const cacheKey = `total-returns:${symbol}`;
     const cached = totalReturnsCache.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < TOTAL_RETURNS_TTL_MS) {
       return res.json({ data: cached.data });
     }
-    
+
     const result = await fetchComparisonChartsDirect([symbol], "3Y");
     const historical = result.data[symbol] || { timestamps: [], closes: [] };
-    
+
     const calculateTotalReturn = (closes, timestamps, months) => {
       if (!closes || closes.length < 2) return null;
       const currentPrice = closes[closes.length - 1];
       const currentTime = timestamps[timestamps.length - 1];
       const targetTime = currentTime - (months * 30 * 24 * 60 * 60);
-      
+
       let closestIndex = 0;
       let closestDiff = Math.abs(timestamps[0] - targetTime);
       for (let i = 1; i < timestamps.length; i++) {
@@ -553,12 +578,12 @@ app.get("/api/yahoo-finance/total-returns", async (req, res) => {
           closestIndex = i;
         }
       }
-      
+
       const pastPrice = closes[closestIndex];
       if (!pastPrice || pastPrice <= 0 || !currentPrice || currentPrice <= 0) return null;
       return ((currentPrice - pastPrice) / pastPrice) * 100;
     };
-    
+
     const returns = {
       symbol,
       totalReturn3Mo: calculateTotalReturn(historical.closes, historical.timestamps, 3),
@@ -566,7 +591,7 @@ app.get("/api/yahoo-finance/total-returns", async (req, res) => {
       totalReturn12Mo: calculateTotalReturn(historical.closes, historical.timestamps, 12),
       totalReturn3Yr: calculateTotalReturn(historical.closes, historical.timestamps, 36),
     };
-    
+
     totalReturnsCache.set(cacheKey, { data: returns, timestamp: Date.now() });
     res.json({ data: returns });
   } catch (error) {
